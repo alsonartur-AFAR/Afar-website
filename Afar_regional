@@ -1,0 +1,442 @@
+page.jsx
+import React, { useState } from 'react';
+import { Menu, X, Heart, Mail, Phone, MapPin, Search, ChevronRight, Users, Target, Leaf } from 'lucide-react';
+
+export default function AFARWebsite() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+
+  const projects = [
+    {
+      id: 1,
+      title: "Água Sustentável",
+      category: "WASH",
+      description: "Sistemas de abastecimento de água em comunidades rurais",
+      image: "🌊",
+      impact: "Comunidades beneficiadas"
+    },
+    {
+      id: 2,
+      title: "Saneamento Comunitário",
+      category: "Infraestrutura",
+      description: "Construção de latrinas e sistemas de higiene",
+      image: "🏗️",
+      impact: "Escolas equipadas"
+    },
+    {
+      id: 3,
+      title: "Agricultura Regenerativa",
+      category: "Sustentabilidade",
+      description: "Formação em técnicas agrícolas sustentáveis",
+      image: "🌱",
+      impact: "Agricultores treinados"
+    },
+    {
+      id: 4,
+      title: "Empoderamento Juvenil",
+      category: "Desenvolvimento",
+      description: "Programas de capacitação para jovens empreendedores",
+      image: "👥",
+      impact: "Jovens capacitados"
+    }
+  ];
+
+  const blogPosts = [
+    {
+      id: 1,
+      title: "O Impacto do Desenvolvimento Rural em Nampula",
+      author: "AFAR Team",
+      date: "15 Jun 2026",
+      category: "Desenvolvimento",
+      excerpt: "Descubra como projetos de base comunitária estão transformando vidas em Moçambique..."
+    },
+    {
+      id: 2,
+      title: "Água Limpa: Direito Fundamental, Ação Urgente",
+      author: "Alson Baltazar",
+      date: "10 Jun 2026",
+      category: "WASH",
+      excerpt: "A importância da água segura e saneamento para comunidades rurais vulneráveis..."
+    },
+    {
+      id: 3,
+      title: "Histórias de Sucesso: Quando a Comunidade Toma a Iniciativa",
+      author: "AFAR Team",
+      date: "05 Jun 2026",
+      category: "Impacto",
+      excerpt: "Conheça os empreendedores e líderes comunitários que estão mudando suas aldeias..."
+    }
+  ];
+
+  const stats = [
+    { number: "Em Crescimento", label: "Pessoas Impactadas" },
+    { number: "5+", label: "Comunidades Envolvidas" },
+    { number: "Múltiplos", label: "Projetos em Desenvolvimento" },
+    { number: "100%", label: "Dedicação à Qualidade" }
+  ];
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    if (newsletterEmail) {
+      setNewsletterSubmitted(true);
+      setTimeout(() => {
+        setNewsletterEmail('');
+        setNewsletterSubmitted(false);
+      }, 3000);
+    }
+  };
+
+  const scrollToSection = (section) => {
+    setActiveSection(section);
+    setMobileMenuOpen(false);
+  };
+
+  return (
+    <div className="w-full bg-white">
+      <nav className="fixed w-full top-0 bg-white shadow-md z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-2 cursor-pointer">
+              <div className="text-2xl font-bold text-green-700">🌍</div>
+              <span className="text-xl font-bold text-gray-900">AFAR</span>
+            </div>
+
+            <div className="hidden md:flex items-center space-x-8">
+              {['Início', 'Sobre', 'Projetos', 'Blog', 'Impacto', 'Contato'].map(item => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className="text-gray-700 hover:text-green-700 transition font-medium"
+                >
+                  {item}
+                </button>
+              ))}
+              <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition font-semibold">
+                Doar Agora
+              </button>
+            </div>
+
+            <button
+              className="md:hidden"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
+          {mobileMenuOpen && (
+            <div className="md:hidden pb-4 border-t">
+              {['Início', 'Sobre', 'Projetos', 'Blog', 'Impacto', 'Contato'].map(item => (
+                <button
+                  key={item}
+                  onClick={() => scrollToSection(item.toLowerCase())}
+                  className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-green-50"
+                >
+                  {item}
+                </button>
+              ))}
+              <button className="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition">
+                Doar Agora
+              </button>
+            </div>
+          )}
+        </div>
+      </nav>
+
+      <section className="pt-20 bg-gradient-to-br from-green-700 via-green-600 to-green-800 text-white py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+              Desenvolvimento Rural, Liderado pela Comunidade
+            </h1>
+            <p className="text-xl sm:text-2xl mb-8 text-green-100 max-w-3xl mx-auto">
+              AFAR trabalha ao lado de comunidades rurais em Moçambique para criar soluções sustentáveis em água, saneamento e desenvolvimento.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button 
+                onClick={() => scrollToSection('projetos')}
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold transition"
+              >
+                Conheça Nossos Projetos
+              </button>
+              <button 
+                onClick={() => scrollToSection('contato')}
+                className="bg-white hover:bg-green-50 text-green-700 px-8 py-3 rounded-lg font-semibold transition"
+              >
+                Entre em Contato
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, idx) => (
+              <div key={idx} className="text-center">
+                <div className="text-3xl sm:text-4xl font-bold text-green-700 mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-gray-700 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-gray-900">Sobre AFAR</h2>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="text-5xl mb-6">🌱</div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-900">Nossa Missão</h3>
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                A Associação para o Fomento da Autonomia Rural (AFAR) é uma organização liderada pela juventude que trabalha para empoderar comunidades rurais em Nampula, Moçambique.
+              </p>
+              <p className="text-gray-700 mb-4 leading-relaxed">
+                Fundada por <strong>Alson Artur Baltazar</strong> e <strong>Norberto Martinho</strong>, focamos em água, saneamento, higiene (WASH), desenvolvimento sustentável e empoderamento de jovens através de soluções baseadas na comunidade.
+              </p>
+              <p className="text-gray-700 leading-relaxed">
+                Acreditamos que mudança real acontece quando as próprias comunidades liderem a transformação.
+              </p>
+            </div>
+            <div className="bg-green-50 p-8 rounded-lg">
+              <h3 className="text-2xl font-bold mb-6 text-gray-900">Nossos Valores</h3>
+              <ul className="space-y-4">
+                {[
+                  { icon: '💚', title: 'Inclusão', desc: 'Todos têm voz' },
+                  { icon: '🎯', title: 'Impacto', desc: 'Resultados mensuráveis' },
+                  { icon: '🌍', title: 'Sustentabilidade', desc: 'Pensamos a longo prazo' },
+                  { icon: '👥', title: 'Comunidade', desc: 'Liderança local' }
+                ].map((val, idx) => (
+                  <li key={idx} className="flex items-start">
+                    <span className="text-2xl mr-3">{val.icon}</span>
+                    <div>
+                      <strong className="text-gray-900">{val.title}</strong>
+                      <p className="text-gray-600 text-sm">{val.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-gray-900">Nossos Projetos</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map(project => (
+              <div key={project.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <div className="text-6xl bg-green-50 p-8 text-center">{project.image}</div>
+                <div className="p-6">
+                  <span className="inline-block bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+                    {project.category}
+                  </span>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{project.title}</h3>
+                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <div className="flex items-center text-green-700 font-semibold">
+                    <Heart size={16} className="mr-2" />
+                    {project.impact}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-gray-900">Blog & Notícias</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {blogPosts.map(post => (
+              <article key={post.id} className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition">
+                <div className="bg-gradient-to-r from-green-500 to-green-600 h-48 flex items-center justify-center">
+                  <span className="text-5xl">📰</span>
+                </div>
+                <div className="p-6">
+                  <span className="text-sm text-green-700 font-semibold">{post.category}</span>
+                  <h3 className="text-lg font-bold text-gray-900 mt-2 mb-2">{post.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{post.excerpt}</p>
+                  <div className="flex justify-between items-center text-sm text-gray-500">
+                    <span>{post.author}</span>
+                    <span>{post.date}</span>
+                  </div>
+                  <button className="mt-4 text-green-700 font-semibold flex items-center hover:text-green-800">
+                    Ler Mais <ChevronRight size={16} className="ml-2" />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-gray-900">Galeria de Fotos</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[...Array(8)].map((_, i) => (
+              <div key={i} className="bg-gradient-to-br from-green-400 to-green-600 rounded-lg aspect-square flex items-center justify-center text-4xl hover:scale-105 transition">
+                {['🏗️', '💧', '🌱', '👥', '📚', '🤝', '🌍', '💚'][i]}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Heart className="w-16 h-16 mx-auto mb-6" />
+          <h2 className="text-4xl font-bold mb-6">Apoie Nosso Trabalho</h2>
+          <p className="text-lg mb-8 text-orange-100">
+            Sua doação direta impacta vidas e projetos nas comunidades rurais de Moçambique.
+          </p>
+          <div className="grid md:grid-cols-4 gap-4 mb-8">
+            {['10 MT', '25 MT', '50 MT', 'Outra Quantia'].map((amount, idx) => (
+              <button key={idx} className="bg-white hover:bg-orange-50 text-orange-600 font-semibold py-3 rounded-lg transition">
+                {amount}
+              </button>
+            ))}
+          </div>
+          <div className="bg-white bg-opacity-20 p-6 rounded-lg inline-block">
+            <p className="text-orange-100 mb-2">Métodos Aceitos:</p>
+            <p className="text-lg font-semibold">M-Pesa • Transferência Bancária • PayPal</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-white">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Mail className="w-12 h-12 mx-auto text-green-700 mb-4" />
+          <h2 className="text-3xl font-bold mb-4 text-gray-900">Fique Conectado</h2>
+          <p className="text-gray-600 mb-6">
+            Receba atualizações sobre nossos projetos e histórias de impacto
+          </p>
+          <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+            <input
+              type="email"
+              value={newsletterEmail}
+              onChange={(e) => setNewsletterEmail(e.target.value)}
+              placeholder="Seu email"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              required
+            />
+            <button
+              type="submit"
+              className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-semibold transition"
+            >
+              Inscrever-se
+            </button>
+          </form>
+          {newsletterSubmitted && (
+            <p className="mt-4 text-green-600 font-semibold">✓ Obrigado! Você foi inscrito.</p>
+          )}
+        </div>
+      </section>
+
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-12 text-gray-900">Entre em Contato</h2>
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {[
+              { icon: MapPin, title: 'Localização', content: 'Cidade de Nampula, Moçambique' },
+              { icon: Mail, title: 'Email', content: 'afar.regional@outlook.com' },
+              { icon: Phone, title: 'WhatsApp', content: '+258 84 456 1214' }
+            ].map((contact, idx) => (
+              <div key={idx} className="bg-white p-6 rounded-lg shadow text-center">
+                <contact.icon className="w-12 h-12 text-green-700 mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{contact.title}</h3>
+                <p className="text-gray-600">{contact.content}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md p-8 max-w-2xl mx-auto">
+            <form className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <input
+                  type="text"
+                  placeholder="Seu Nome"
+                  className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+                />
+                <input
+                  type="email"
+                  placeholder="Seu Email"
+                  className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="Assunto"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              />
+              <textarea
+                placeholder="Sua Mensagem"
+                rows="5"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-700"
+              ></textarea>
+              <div className="flex gap-4">
+                <button
+                  type="submit"
+                  className="flex-1 bg-green-700 hover:bg-green-800 text-white py-3 rounded-lg font-semibold transition"
+                >
+                  Enviar Mensagem
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.open('https://wa.me/258844561214', '_blank')}
+                  className="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold transition"
+                >
+                  💬 WhatsApp
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-gray-900 text-gray-300 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="text-2xl">🌍</div>
+                <span className="text-lg font-bold text-white">AFAR</span>
+              </div>
+              <p className="text-sm">Desenvolvimento rural liderado pela comunidade em Moçambique</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Links Rápidos</h4>
+              <ul className="text-sm space-y-2">
+                <li><a href="#" className="hover:text-white transition">Sobre</a></li>
+                <li><a href="#" className="hover:text-white transition">Projetos</a></li>
+                <li><a href="#" className="hover:text-white transition">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition">Contato</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Contato</h4>
+              <p className="text-sm">Email: afar.regional@outlook.com</p>
+              <p className="text-sm">WhatsApp: +258 84 456 1214</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Parceiros</h4>
+              <p className="text-sm">Trabalhamos com ONGs, agências internacionais e comunidades locais</p>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 pt-8 text-center text-sm">
+            <p>&copy; 2026 AFAR. Todos os direitos reservados.</p>
+            <p className="mt-2">Desenvolvido com ❤️ para comunidades rurais</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
